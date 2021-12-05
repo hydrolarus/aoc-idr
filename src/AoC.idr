@@ -32,7 +32,11 @@ getDay (a::rest) day =
         getDay rest day
 
 
-||| Run the latest day challenge and show the results of the execution.
+||| Run the selected day challenge and show the results of the execution.
+|||
+||| The day to run can be set by specifying `--day <number>` on the CLI.
+||| If the day to run is not specified the day with the highest day number
+||| will be run.
 |||
 ||| @ year The year for which to download the input data
 ||| @ inputDir A path to a directory in which the input data will be saved
