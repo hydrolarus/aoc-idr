@@ -58,6 +58,7 @@ Features:
 
 - automatic downloading of your personalised input data
 - timing report of parser and solver execution
+- specify day to run using `--day <daynumber>` or automatically run latest
 
 ## Installation
 
