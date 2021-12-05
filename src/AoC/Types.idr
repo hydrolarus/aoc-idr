@@ -15,9 +15,11 @@ record DayPart where
     name : String
     parser : String -> IO dataType
     solver : dataType -> IO outputType
+    
 
 public export
 record Day where
     constructor MkDay
     dayNumber : Integer
     parts : List DayPart
+    testInput : String

@@ -80,5 +80,15 @@ runDay day input = do
     putStrLn "======"
     putStrLn $ "Day " ++ show day.dayNumber
     putStrLn "======\n"
+
+    putStrLn "Test input"
+    for_ day.parts $ \part => do
+        parsedInput <- part.parser day.testInput
+        result <- part.solver parsedInput
+        let showInstance = part.showInstance
+        putStrLn $ "  \{part.name} = \{show result}"
+    
+    putStrLn ""
+
     for_ day.parts $ \part => do
         runPart part input

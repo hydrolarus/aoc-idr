@@ -15,11 +15,21 @@ parse = map cast . lines
 solvePart1 : List Integer -> Integer
 solvePart1 xs = fromMaybe 0 $ head' [a * b | a <- xs, b <- xs, a + b == 2020]
 
+testInput : String
+testInput = """
+1721
+979
+366
+299
+675
+1456
+"""
 
 day01 : Day
 day01 = MkDay 1 [
-    MkDayPart "Part 1" (pure . parse) (pure . solvePart1)
-]
+        MkDayPart "Part 1" (pure . parse) (pure . solvePart1)
+    ]
+    testInput
 
 days : List Day
 days = [
@@ -36,7 +46,10 @@ main = do
 Day 1
 ======
 
-Part 1 = 514579
+Test input
+  Part 1 = 514579
+
+Part 1 = <redacted>
   Parse: 3.0326 μs
   Solve: 6.0033 μs
 ```

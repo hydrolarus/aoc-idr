@@ -9,6 +9,7 @@ import AoC.Input
 import Data.List
 import Data.String
 
+import System
 import System.Clock
 
 latestDay : List Day -> Maybe Day
@@ -22,6 +23,15 @@ latestDay (a::rest) = loop a rest
             else
                 loop x rest
 
+getDay : List Day -> (day : Integer) -> Maybe Day
+getDay [] day = Nothing
+getDay (a::rest) day =
+    if a.dayNumber == day then
+        Just a
+    else
+        getDay rest day
+
+
 ||| Run the latest day challenge and show the results of the execution.
 |||
 ||| @ year The year for which to download the input data
@@ -31,13 +41,18 @@ export
 run : (year : Integer) -> (inputDir : String) -> (days : List Day) -> IO ()
 run year inputDir days = do
 
-    Just day <- pure $ latestDay days
-        | Nothing => do
-            putStrLn "No days available to execute"
-            pure ()
+    let day = case !getArgs of
+            [_, "--day", day] => Just (cast day)
+            _ => Nothing
+
+    Just day <- the (IO $ Maybe Day) $ case day of
+                    Just day => pure $ getDay days day
+                    Nothing => pure $ latestDay days
+    | Nothing =>
+        putStrLn "No day found to execute"
     
     Just input <- fetchInput year inputDir day.dayNumber
-        | Nothing => do
-            putStrLn "Unable to get input for day \{show day.dayNumber}"
+    | Nothing => do
+        putStrLn "Unable to get input for day \{show day.dayNumber}"
         
     runDay day input
